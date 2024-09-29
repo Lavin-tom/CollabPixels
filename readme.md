@@ -10,7 +10,7 @@ Welcome to the **Inktober - Collaborative Pixel Art** project! This is a simple 
 
 ## How to Use
 
-1. **Access the Sheet**: Open the Google Sheets link provided in the main project page.
+1. **Access the Sheet**: Open the Google Sheets link provided on the main project page.
 2. **Refer to the Daily Reference Values**: Each day, check the updated reference values to inspire your pixel art.
 3. **Input Values**: Fill in the cells by typing or pasting the desired value. The default conditional formatting in Google Sheets will automatically create a visual representation based on the values you enter.
 4. **Continuous Rows**: For a cohesive look, it’s recommended to fill pixels in continuous rows.
@@ -21,9 +21,10 @@ Welcome to the **Inktober - Collaborative Pixel Art** project! This is a simple 
 ## Important Notes
 
 - **Collaboration**: Be mindful that others are also contributing. Respect the existing artwork and try to work in areas that haven’t been filled yet.
-- **Updates**: Remember that reference values will update weekly, so check back frequently for new inspiration.
-- **Final Reveal**: The final image will be published on October 30, showcasing the collaborative effort, so the reference values will guide your contributions without displaying the complete final image until then.
-- **Creativity**: Feel free to experiment within the guidelines! The goal is to create a vibrant piece of collaborative art together.
+- **Updates**: Remember that reference values will update daily, so check back frequently for new inspiration.
+- **Final Image**: The final image will be set to 85 x 100, totaling 8,500 pixels. The first 24 days will have reference values in 3 rows, and the last 7 days will have 4 rows. This means you can add 255 pixels in the first 24 days and 340 pixels each day in the last week.
+- **Creativity**: Feel free to copy as many values as you like, but please give others a chance to contribute as well. Ensure that copied values are placed in the same row and column as the reference, and make sure they match exactly.
+- **Final Reveal**: The final image will be published on October 31, showcasing the collaborative effort, so the reference values will guide your contributions without displaying the complete final image until then.
 
 ## Contribution
 
