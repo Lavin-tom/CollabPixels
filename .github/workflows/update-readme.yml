@@ -1,0 +1,30 @@
+name: Update README Daily
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Update README.md
+        run: |
+          # Get the current day of the month
+          TODAY=$(date +'%d')
+          
+          # Define the image URL based on the current day
+          IMAGE_URL="Progress/Day${TODAY}.jpg"
+          
+          # Update the README with the new image link
+          sed -i "s|!\[Day Image\](.*)|![Day Image]($IMAGE_URL)|" README.md
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "lavintom007@gmail.com"
+          git config --local user.name "Lavin-Tom"
+          git commit -am "Update image link for $(date +'%Y-%m-%d')"
+          git push
