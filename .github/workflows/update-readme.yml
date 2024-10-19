@@ -11,7 +11,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3  
 
-      - name: Update README.md
+      - name: Update readme.md
         run: |
           # Get the current day and date
           TODAY=$(date +'%d')
@@ -21,8 +21,8 @@ jobs:
           IMAGE_URL="Progress/Day${TODAY}.jpg"
           
           # Update the README with the new image link and date
-          sed -i "s|!\[Day Image\](.*)|![Day Image]($IMAGE_URL)|" README.md
-          sed -i "s|Today's date: .*|Today's date: $DATE|" README.md || echo "Today's date: $DATE" >> README.md
+          sed -i "s|!\[Day Image\](.*)|![Day Image]($IMAGE_URL)|" readme.md
+          sed -i "s|Today's date: .*|Today's date: $DATE|" readme.md || echo "Today's date: $DATE" >> readme.md
 
       - name: Commit changes
         run: |
