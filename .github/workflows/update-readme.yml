@@ -9,18 +9,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3  
 
       - name: Update README.md
         run: |
-          # Get the current day of the month
+          # Get the current day and date
           TODAY=$(date +'%d')
+          DATE=$(date +'%Y-%m-%d')
           
           # Define the image URL based on the current day
           IMAGE_URL="Progress/Day${TODAY}.jpg"
           
-          # Update the README with the new image link
+          # Update the README with the new image link and date
           sed -i "s|!\[Day Image\](.*)|![Day Image]($IMAGE_URL)|" README.md
+          sed -i "s|Today's date: .*|Today's date: $DATE|" README.md || echo "Today's date: $DATE" >> README.md
 
       - name: Commit changes
         run: |
