@@ -4,8 +4,8 @@ Welcome to the **Inktober - Collaborative Pixel Art** project! This is a simple 
 
 # Today's Image
 
-Today's date: YYYY-MM-DD 
-![Day Image](Progress/Day18.jpg)  
+Today's date: 2024-10-20
+![Day Image](Progress/Day20.jpg)  
 
 
 ## Overview
