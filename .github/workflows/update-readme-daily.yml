@@ -11,15 +11,15 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3  
-
+        
       - name: Update readme.md
         run: |
-          # Get the current day and date
-          TODAY=$(date +'%d')
-          DATE=$(date +'%Y-%m-%d')
+          # Get yesterday's day and date
+          YESTERDAY=$(date -d "yesterday" +'%d')
+          DATE=$(date -d "yesterday" +'%Y-%m-%d')
           
-          # Define the image URL based on the current day
-          IMAGE_URL="Progress/Day${TODAY}.jpg"
+          # Define the image URL based on yesterday's day
+          IMAGE_URL="Progress/Day${YESTERDAY}.jpg"
           
           # Update the README with the new image link and date
           sed -i "s|!\[Day Image\](.*)|![Day Image]($IMAGE_URL)|" readme.md
@@ -29,5 +29,5 @@ jobs:
         run: |
           git config --local user.email "lavintom007@gmail.com"
           git config --local user.name "Lavin-Tom"
-          git commit -am "Update image link for $(date +'%Y-%m-%d')"
+          git commit -am "Update image link for $(date -d "yesterday" +'%Y-%m-%d')" || echo "No changes to commit"
           git push
