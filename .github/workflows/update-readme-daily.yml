@@ -23,7 +23,7 @@ jobs:
           
           # Update the README with the new image link and date
           sed -i "s|!\[Day Image\](.*)|![Day Image]($IMAGE_URL)|" readme.md
-          sed -i "s|Today's date: .*|Today's date: $DATE|" readme.md || echo "Today's date: $DATE" >> readme.md
+          sed -i "s|Last updated: .*|Last updated: $DATE|" readme.md || echo "Last updated: $DATE" >> readme.md
 
       - name: Commit changes
         run: |

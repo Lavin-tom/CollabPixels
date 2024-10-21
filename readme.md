@@ -2,9 +2,9 @@
 
 Welcome to the **Inktober - Collaborative Pixel Art** project! This is a simple collaborative pixel art tool using Google Sheets designed for this season's Inktober challenge. Participants can create pixel art by updating the sheet daily based on provided reference values.
 
-# Today's Image
+# Last updated
 
-Today's date: 2024-10-20
+Last updated: 2024-10-20
 ![Day Image](Progress/Day20.jpg)  
 
 
