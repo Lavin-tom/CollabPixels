@@ -4,8 +4,8 @@ Welcome to the **Inktober - Collaborative Pixel Art** project! This is a simple 
 
 # Last updated
 
-Last updated: 2024-10-20
-![Day Image](Progress/Day20.jpg)  
+Last updated: 2024-10-21
+![Day Image](Progress/Day21.jpg)  
 
 
 ## Overview
