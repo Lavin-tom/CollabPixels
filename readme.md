@@ -7,6 +7,19 @@ Welcome to the **Inktober - Collaborative Pixel Art** project! This is a simple 
 Last updated: 2024-10-30
 ![Day Image](Progress/Day30.jpg)  
 
+# Featured Artists
+
+A huge thank you to all the talented artists who contributed to this Inktobber collaborative pixel art 2024 project.Your dedication brought this project to life.
+|Artist Name|
+|-----------|
+|Lavin|
+|Gresh|
+|Vineetha|
+|Justin|
+|Sooraj|
+
+Many members have contributed to this project but some may have forgotten or are unwilling to add their names as contributors.
+Thank you all for valuable contribution.
 
 ## Overview
 
