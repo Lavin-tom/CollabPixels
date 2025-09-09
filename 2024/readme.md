@@ -5,7 +5,7 @@ Welcome to the **Inktober - Collaborative Pixel Art** project! This is a simple 
 # Last updated
 
 Last updated: 2024-10-31
-![Day Image](https://github.com/Lavin-tom/CollabPixels/tree/main/Progress/Day31.jpg)  
+![Day Image](../Progress/Day31.jpg)  
 
 # Featured Artists
 
