@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inktober - Collaborative Pixel Art</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png"> 
+    <link rel="shortcut icon" type="image/png" href="assets/favicon.png">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0; 
+            padding: 0; 
+            font-family: 'Roboto', sans-serif; 
+            background-color: #fafafa; 
+            overflow: hidden; /* Prevent scrollbar */
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            position: relative; 
+            flex: 1; 
+            display: flex;
+            justify-content: center; 
+            align-items: center; 
+            width: 100%; 
+        }
+        .overlay {
+            position: absolute; 
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px; /* Height of the overlay */
+            background-color: #fafafa; 
+            z-index: 1; 
+            display: flex; /* Use flexbox for centering the title */
+            justify-content: center; 
+            align-items: center; 
+        }
+        h1 {
+            font-family: 'Pacifico', cursive; 
+            font-size: 2.5em; /* Adjust font size for smaller screens */
+            margin: 0; /* Set margin to 0 to eliminate gaps */
+            color: #333; 
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            z-index: 2; /* Ensure the title appears above the overlay background */
+        }
+        iframe {
+            width: 100%; 
+            height: calc(100vh - 60px - 40px); /* Adjust height to fit without scrolling */
+            border: none;
+            z-index: 0; 
+        }
+        footer {
+            padding: 5px;
+            background-color: #f1f1f1;
+            text-align: center;
+            width: 100%;
+        }
+
+        /* Media Query for Responsive Design */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2em; /* Further reduce font size on smaller screens */
+            }
+            .overlay {
+                height: 50px; /* Reduce height of overlay for smaller screens */
+            }
+            iframe {
+                height: calc(100vh - 50px - 40px); /* Adjust iframe height accordingly */
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="content">
+    <div class="overlay">
+        <h1>Inktober - Collaborative Pixel Art</h1> 
+    </div>
+    <iframe src="https://docs.google.com/spreadsheets/d/1LH-UzbdvVGiccYhPNv2Nejtm_eSTEvh9m84RWHZpHrg/edit?usp=sharing&rm=demo" allow="fullscreen"></iframe>
+</div>
+<footer>
+    <p>&copy; 2024 <a href="https://github.com/Lavin-tom/CollabPixels.git" target="_blank" style="text-decoration: none; color: inherit;">lāvin</a></p>
+</footer>
+</body>
+</html>
