@@ -19,7 +19,7 @@ A huge thank you to all the talented artists who contributed to this Inktobber c
 |Sooraj|
 
 ## 2024
-![2024](https://lavin-tom.github.io/CollabPixels/2024/index.html)
+[click to view 2024 canvas](https://lavin-tom.github.io/CollabPixels/2024/index.html)
 
 Many members have contributed to this project but some may have forgotten or are unwilling to add their names as contributors.
 Thank you all for valuable contribution.
