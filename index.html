@@ -15,11 +15,12 @@
             padding: 0; 
             font-family: 'Roboto', sans-serif; 
             background-color: #fafafa; 
-            overflow: hidden; /* Prevent scrollbar */
+            overflow: hidden; 
         }
         body {
             display: flex;
             flex-direction: column;
+            position: relative; 
         }
         .content {
             position: relative; 
@@ -34,24 +35,24 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 60px; /* Height of the overlay */
+            height: 60px; 
             background-color: #fafafa; 
             z-index: 1; 
-            display: flex; /* Use flexbox for centering the title */
+            display: flex; 
             justify-content: center; 
             align-items: center; 
         }
         h1 {
             font-family: 'Pacifico', cursive; 
-            font-size: 2.5em; /* Adjust font size for smaller screens */
-            margin: 0; /* Set margin to 0 to eliminate gaps */
+            font-size: 2.5em; 
+            margin: 0;
             color: #333; 
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-            z-index: 2; /* Ensure the title appears above the overlay background */
+            z-index: 2;
         }
         iframe {
             width: 100%; 
-            height: calc(100vh - 60px - 40px); /* Adjust height to fit without scrolling */
+            height: calc(100vh - 60px - 40px); 
             border: none;
             z-index: 0; 
         }
@@ -62,16 +63,45 @@
             width: 100%;
         }
 
+        /* Mini Map Styles */
+        .mini-map-container {
+            position: fixed;
+            top: 60px; 
+            right: 0;
+            width: 200px;
+            height: 80%;
+            background-color: #fff;
+            border-left: 2px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
+        .mini-map {
+            width: 100%;
+            height: 100%;
+            background-image: url('assets/thumbnail.png'); 
+            background-size: cover;
+            background-position: top left;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
         /* Media Query for Responsive Design */
         @media (max-width: 600px) {
             h1 {
-                font-size: 2em; /* Further reduce font size on smaller screens */
+                font-size: 2em; 
             }
             .overlay {
-                height: 50px; /* Reduce height of overlay for smaller screens */
+                height: 50px; 
             }
             iframe {
-                height: calc(100vh - 50px - 40px); /* Adjust iframe height accordingly */
+                height: calc(100vh - 50px - 40px); 
+            }
+            .mini-map-container {
+                width: 150px;
             }
         }
     </style>
@@ -82,11 +112,23 @@
     <div class="overlay">
         <h1>Inktober 2k25 - Collaborative Pixel Art</h1> 
     </div>
-    <!--<iframe src="https://docs.google.com/spreadsheets/d/1LH-UzbdvVGiccYhPNv2Nejtm_eSTEvh9m84RWHZpHrg/edit?usp=sharing&rm=demo" allow="fullscreen"></iframe>-->
     <iframe src="https://docs.google.com/spreadsheets/d/15npybvf3p85Gyhw6EAMXyL5x09UI0zZqRO2RQMSQ4Pk/edit?usp=sharing&rm=demo" allow="fullscreen"></iframe>
 </div>
+
+<div class="mini-map-container">
+    <div class="mini-map" id="miniMap" onclick="scrollToSection()"></div>
+</div>
+
 <footer>
     <p>&copy; 2025 <a href="https://github.com/Lavin-tom/CollabPixels.git" target="_blank" style="text-decoration: none; color: inherit;">lāvin</a></p>
 </footer>
+
+<script>
+    function scrollToSection() {
+        const iframe = document.querySelector('iframe');
+        iframe.contentWindow.scrollTo(0, 500); 
+    }
+</script>
+
 </body>
 </html>
