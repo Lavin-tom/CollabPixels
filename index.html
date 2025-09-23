@@ -45,10 +45,10 @@
         h1 {
             font-family: 'Pacifico', cursive; 
             font-size: 2.5em; 
-            margin: 0;
+            margin: 0; 
             color: #333; 
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-            z-index: 2;
+            z-index: 2; 
         }
         iframe {
             width: 100%; 
@@ -79,29 +79,27 @@
             align-items: center;
             padding: 10px;
         }
-        .mini-map {
+        .mini-map-iframe {
             width: 100%;
             height: 100%;
-            background-image: url('assets/thumbnail.png'); 
-            background-size: cover;
-            background-position: top left;
-            border: 1px solid #ddd;
-            cursor: pointer;
+            border: none;
+            transform: scale(0.2); 
+            transform-origin: top left; 
+            overflow: hidden;
         }
 
-        /* Media Query for Responsive Design */
         @media (max-width: 600px) {
             h1 {
                 font-size: 2em; 
             }
             .overlay {
-                height: 50px; 
+                height: 50px;
             }
             iframe {
                 height: calc(100vh - 50px - 40px); 
             }
             .mini-map-container {
-                width: 150px;
+                width: 150px; 
             }
         }
     </style>
@@ -116,7 +114,7 @@
 </div>
 
 <div class="mini-map-container">
-    <div class="mini-map" id="miniMap" onclick="scrollToSection()"></div>
+    <iframe src="https://docs.google.com/spreadsheets/d/15npybvf3p85Gyhw6EAMXyL5x09UI0zZqRO2RQMSQ4Pk/edit?usp=sharing&rm=demo" class="mini-map-iframe" allow="fullscreen"></iframe>
 </div>
 
 <footer>
@@ -124,11 +122,13 @@
 </footer>
 
 <script>
-    function scrollToSection() {
+    document.querySelector('.mini-map-container').addEventListener('click', function(event) {
         const iframe = document.querySelector('iframe');
-        iframe.contentWindow.scrollTo(0, 500); 
-    }
+        const scale = 5; 
+        const x = event.clientX / scale;
+        const y = event.clientY / scale;
+        iframe.contentWindow.scrollTo(x, y); 
+    });
 </script>
-
 </body>
 </html>
