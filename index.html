@@ -30,7 +30,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 100%;
+      width: calc(100% - 300px); /* Account for mini-map width */
     }
 
     .overlay {
@@ -66,36 +66,115 @@
       padding: 5px;
       background-color: #f1f1f1;
       text-align: center;
-      width: 100%;
+      width: calc(100% - 300px); /* Account for mini-map width */
     }
 
     /* Mini Map Styles */
     .mini-map-wrapper {
       position: fixed;
-      top: 60px;
+      top: 0;
       right: 0;
-      width: 250px;
-      height: 80vh;
-      border-left: 1px solid #ccc;
-      background: #fefefe;
+      width: 300px;
+      height: 100vh;
+      background: #2c3e50;
       z-index: 1000;
-      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+      box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
       overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mini-map-header {
+      padding: 12px;
+      background-color: #34495e;
+      border-bottom: 1px solid #4a6278;
+      text-align: center;
+      font-weight: bold;
+      color: white;
+      font-size: 0.9em;
     }
 
     .mini-map-content {
-      width: 100%;
-      height: 100%;
+      flex: 1;
       overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      position: relative;
+      background: #ecf0f1;
     }
 
     .mini-map-iframe {
       width: 100%;
       height: 100%;
       border: none;
+      transform: scale(0.25);
+      transform-origin: top left;
+      pointer-events: none;
+    }
+
+    .mini-map-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 10;
+      cursor: default;
+      background: transparent;
+    }
+
+    .viewport-indicator {
+      position: absolute;
+      border: 3px solid #e74c3c;
+      background: rgba(231, 76, 60, 0.2);
+      pointer-events: none;
+      z-index: 5;
+      box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
+    }
+
+    .loading-message {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #7f8c8d;
+      text-align: center;
+      z-index: 2;
+    }
+
+    .instructions {
+      padding: 10px;
+      background: #34495e;
+      color: white;
+      font-size: 0.8em;
+      text-align: center;
+      border-top: 1px solid #4a6278;
+    }
+
+    @media (max-width: 1024px) {
+      .content {
+        width: calc(100% - 250px);
+      }
+      
+      footer {
+        width: calc(100% - 250px);
+      }
+      
+      .mini-map-wrapper {
+        width: 250px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .content {
+        width: 100%;
+      }
+      
+      footer {
+        width: 100%;
+      }
+      
+      .mini-map-wrapper {
+        display: none;
+      }
     }
 
     @media (max-width: 600px) {
@@ -107,9 +186,6 @@
       }
       iframe {
         height: calc(100vh - 50px - 40px);
-      }
-      .mini-map-wrapper {
-        width: 200px;
       }
     }
   </style>
@@ -124,6 +200,7 @@
     <iframe
       src="https://docs.google.com/spreadsheets/d/15npybvf3p85Gyhw6EAMXyL5x09UI0zZqRO2RQMSQ4Pk/edit?usp=sharing&rm=demo"
       allow="fullscreen"
+      id="mainIframe"
     ></iframe>
   </div>
 
@@ -141,25 +218,127 @@
 
   <!-- Mini Map Section -->
   <div class="mini-map-wrapper">
+    <div class="mini-map-header">
+      Sheet Overview Mini-Map
+    </div>
     <div class="mini-map-content">
-      <iframe
+      <div class="loading-message" id="loadingMessage">
+        Loading sheet preview...
+      </div>
+      <iframe 
         class="mini-map-iframe"
         src="about:blank"
-        id="miniMapIframe"
+        id="publishedSheetPreview"
+        style="display: none;"
       ></iframe>
+  
+      <div class="viewport-indicator" id="viewportIndicator"></div>
+      <div class="mini-map-overlay"></div>
+    </div>
+    
+    <div class="instructions">
+      Scroll in main sheet to navigate • Mini-map shows zoomed-out view
     </div>
   </div>
 
   <script>
     window.addEventListener("DOMContentLoaded", () => {
-      const miniMapIframe = document.getElementById("miniMapIframe");
-
-      const contentDocument = miniMapIframe.contentDocument || miniMapIframe.contentWindow.document;
-      contentDocument.open();
-      contentDocument.write(document.documentElement.innerHTML);
-      contentDocument.close();
+      const mainIframe = document.getElementById("mainIframe");
+      const publishedSheetPreview = document.getElementById("publishedSheetPreview");
+      const loadingMessage = document.getElementById("loadingMessage");
+      const viewportIndicator = document.getElementById("viewportIndicator");
+      const screenshotFallback = document.getElementById("screenshotFallback");
+      
+      function loadPublishedSheet() {
+        const sheetId = '15npybvf3p85Gyhw6EAMXyL5x09UI0zZqRO2RQMSQ4Pk';
+        const publishedUrl = `https://docs.google.com/spreadsheets/d/e/${sheetId}/pubhtml?widget=true&headers=false&chrome=false`;
+        
+        publishedSheetPreview.src = publishedUrl;
+        publishedSheetPreview.style.display = 'block';
+        
+        publishedSheetPreview.onload = function() {
+          loadingMessage.style.display = 'none';
+          setupScrollSync();
+        };
+      }
+          
+      // Setup scroll synchronization
+      function setupScrollSync() {
+        let scrollInterval;
+        
+        mainIframe.addEventListener('load', function() {
+          if (scrollInterval) clearInterval(scrollInterval);
+          
+          scrollInterval = setInterval(() => {
+            updateViewportIndicator();
+          }, 100);
+        });
+        
+        // Also track window scroll for the main page
+        window.addEventListener('scroll', updateViewportIndicator);
+      }
+      
+      // Update the viewport indicator
+      function updateViewportIndicator() {
+        try {
+          const iframeWindow = mainIframe.contentWindow;
+          const iframeDoc = mainIframe.contentDocument;
+          
+          if (!iframeWindow || !iframeDoc) {
+            updateViewportIndicatorFallback();
+            return;
+          }
+          
+          const scrollX = iframeWindow.scrollX || iframeDoc.documentElement.scrollLeft;
+          const scrollY = iframeWindow.scrollY || iframeDoc.documentElement.scrollTop;
+          const viewportWidth = iframeWindow.innerWidth;
+          const viewportHeight = iframeWindow.innerHeight;
+          
+          const docWidth = Math.max(iframeDoc.documentElement.scrollWidth, iframeDoc.body.scrollWidth, 5000);
+          const docHeight = Math.max(iframeDoc.documentElement.scrollHeight, iframeDoc.body.scrollHeight, 3000);
+          
+          if (docWidth > 0 && docHeight > 0) {
+            const previewWidth = 300; // mini-map content width
+            const previewHeight = document.querySelector('.mini-map-content').clientHeight;
+            
+            const indicatorWidth = (viewportWidth / docWidth) * previewWidth * 4; // ×4 because of scale(0.25)
+            const indicatorHeight = (viewportHeight / docHeight) * previewHeight * 4;
+            const indicatorLeft = (scrollX / docWidth) * previewWidth * 4;
+            const indicatorTop = (scrollY / docHeight) * previewHeight * 4;
+            
+            viewportIndicator.style.width = Math.max(indicatorWidth, 8) + 'px';
+            viewportIndicator.style.height = Math.max(indicatorHeight, 8) + 'px';
+            viewportIndicator.style.left = indicatorLeft + 'px';
+            viewportIndicator.style.top = indicatorTop + 'px';
+            viewportIndicator.style.display = 'block';
+          }
+        } catch (e) {
+          updateViewportIndicatorFallback();
+        }
+      }
+      
+      function updateViewportIndicatorFallback() {
+        // Fallback that simulates movement for demonstration
+        const time = Date.now() / 5000;
+        const previewWidth = 300 * 4;
+        const previewHeight = document.querySelector('.mini-map-content').clientHeight * 4;
+        
+        const x = (Math.sin(time) * 0.3 + 0.5) * (previewWidth - 100);
+        const y = (Math.cos(time * 0.7) * 0.3 + 0.5) * (previewHeight - 60);
+        
+        viewportIndicator.style.width = '100px';
+        viewportIndicator.style.height = '60px';
+        viewportIndicator.style.left = x + 'px';
+        viewportIndicator.style.top = y + 'px';
+        viewportIndicator.style.display = 'block';
+      }
+      
+      // Initialize
+      loadPublishedSheet();
+      
+      // Make mini-map non-interactive
+      publishedSheetPreview.style.pointerEvents = "none";
     });
   </script>
-
 </body>
 </html>
