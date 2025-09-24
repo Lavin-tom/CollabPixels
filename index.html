@@ -78,24 +78,24 @@
       height: 80vh;
       border-left: 1px solid #ccc;
       background: #fefefe;
-      overflow: auto;
       z-index: 1000;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
     }
 
     .mini-map-content {
-      transform: scale(0.15);
-      transform-origin: top left;
-      width: 1000%;
-      pointer-events: none;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    .mini-map-wrapper::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .mini-map-wrapper::-webkit-scrollbar-thumb {
-      background: #888;
-      border-radius: 4px;
+    .mini-map-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
     @media (max-width: 600px) {
@@ -139,28 +139,25 @@
     </p>
   </footer>
 
-  <div class="mini-map-wrapper" id="miniMapWrapper">
-    <div class="mini-map-content" id="miniMapContent"></div>
+  <!-- Mini Map Section -->
+  <div class="mini-map-wrapper">
+    <div class="mini-map-content">
+      <iframe
+        class="mini-map-iframe"
+        src="about:blank"
+        id="miniMapIframe"
+      ></iframe>
+    </div>
   </div>
 
   <script>
     window.addEventListener("DOMContentLoaded", () => {
-      const contentClone = document.body.cloneNode(true);
+      const miniMapIframe = document.getElementById("miniMapIframe");
 
-      const cloneMap = contentClone.querySelector(".mini-map-wrapper");
-      if (cloneMap) cloneMap.remove();
-
-      contentClone.querySelectorAll("script").forEach(script => script.remove());
-
-      document.getElementById("miniMapContent").appendChild(contentClone);
-
-      document.getElementById("miniMapWrapper").addEventListener("click", function (e) {
-        const scale = 0.15;
-        const rect = this.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / scale;
-        const y = (e.clientY - rect.top) / scale;
-        window.scrollTo({ top: y, left: x, behavior: 'smooth' });
-      });
+      const contentDocument = miniMapIframe.contentDocument || miniMapIframe.contentWindow.document;
+      contentDocument.open();
+      contentDocument.write(document.documentElement.innerHTML);
+      contentDocument.close();
     });
   </script>
 
