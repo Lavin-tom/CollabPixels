@@ -1,344 +1,359 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Inktober - Collaborative Pixel Art 2k25</title>
-  <link rel="icon" type="image/png" href="assets/favicon.png" />
-  <link rel="shortcut icon" type="image/png" href="assets/favicon.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
-  <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      font-family: 'Roboto', sans-serif;
-      background-color: #fafafa;
-      overflow: auto;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inktober 2k25 - Collaborative Pixel Art</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
 
-    body {
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
+        :root {
+            --primary: #6C63FF;
+            --primary-dark: #5a52d6;
+            --text: #333;
+            --text-light: #666;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --border: #e0e0e0;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
 
-    .content {
-      position: relative;
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: calc(100% - 300px); /* Account for mini-map width */
-    }
+        .dark-theme {
+            --primary: #8B85FF;
+            --primary-dark: #6C63FF;
+            --text: #f0f0f0;
+            --text-light: #b0b0b0;
+            --bg: #121212;
+            --card-bg: #1e1e1e;
+            --border: #333;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
 
-    .overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 60px;
-      background-color: #fafafa;
-      z-index: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
 
-    h1 {
-      font-family: 'Pacifico', cursive;
-      font-size: 2.5em;
-      margin: 0;
-      color: #333;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
-      z-index: 2;
-    }
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 12px var(--shadow);
+            position: relative;
+            z-index: 10;
+        }
 
-    iframe {
-      width: 100%;
-      height: calc(100vh - 60px - 40px);
-      border: none;
-      z-index: 0;
-    }
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
-    footer {
-      padding: 5px;
-      background-color: #f1f1f1;
-      text-align: center;
-      width: calc(100% - 300px); /* Account for mini-map width */
-    }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
 
-    /* Mini Map Styles */
-    .mini-map-wrapper {
-      position: fixed;
-      top: 0;
-      right: 0;
-      width: 300px;
-      height: 100vh;
-      background: #2c3e50;
-      z-index: 1000;
-      box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-    }
+        .logo i {
+            font-size: 2.5rem;
+        }
 
-    .mini-map-header {
-      padding: 12px;
-      background-color: #34495e;
-      border-bottom: 1px solid #4a6278;
-      text-align: center;
-      font-weight: bold;
-      color: white;
-      font-size: 0.9em;
-    }
+        .logo-text h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.2rem;
+        }
 
-    .mini-map-content {
-      flex: 1;
-      overflow: hidden;
-      position: relative;
-      background: #ecf0f1;
-    }
+        .logo-text p {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
 
-    .mini-map-iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      transform: scale(0.25);
-      transform-origin: top left;
-      pointer-events: none;
-    }
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
 
-    .mini-map-overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 10;
-      cursor: default;
-      background: transparent;
-    }
+        .theme-toggle {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
 
-    .viewport-indicator {
-      position: absolute;
-      border: 3px solid #e74c3c;
-      background: rgba(231, 76, 60, 0.2);
-      pointer-events: none;
-      z-index: 5;
-      box-shadow: 0 0 10px rgba(231, 76, 60, 0.5);
-    }
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(15deg);
+        }
 
-    .loading-message {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #7f8c8d;
-      text-align: center;
-      z-index: 2;
-    }
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
 
-    .instructions {
-      padding: 10px;
-      background: #34495e;
-      color: white;
-      font-size: 0.8em;
-      text-align: center;
-      border-top: 1px solid #4a6278;
-    }
+        .sheet-container {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 18px var(--shadow);
+            border: 1px solid var(--border);
+        }
 
-    @media (max-width: 1024px) {
-      .content {
-        width: calc(100% - 250px);
-      }
-      
-      footer {
-        width: calc(100% - 250px);
-      }
-      
-      .mini-map-wrapper {
-        width: 250px;
-      }
-    }
+        .sheet-header {
+            padding: 1.2rem 1.5rem;
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
 
-    @media (max-width: 768px) {
-      .content {
-        width: 100%;
-      }
-      
-      footer {
-        width: 100%;
-      }
-      
-      .mini-map-wrapper {
-        display: none;
-      }
-    }
+        .sheet-info h2 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 2em;
-      }
-      .overlay {
-        height: 50px;
-      }
-      iframe {
-        height: calc(100vh - 50px - 40px);
-      }
-    }
-  </style>
+        .sheet-info p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .sheet-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .action-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 0.6rem 1.2rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .action-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .sheet-frame {
+            width: 100%;
+            height: 70vh;
+            border: none;
+            background: white;
+        }
+
+        footer {
+            background: var(--card-bg);
+            color: var(--text-light);
+            text-align: center;
+            padding: 1.5rem;
+            margin-top: auto;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-content a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-content a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                justify-content: center;
+            }
+            
+            .sheet-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .sheet-actions {
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .sheet-frame {
+                height: 60vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 1rem;
+            }
+            
+            .sheet-frame {
+                height: 50vh;
+            }
+            
+            .action-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-palette"></i>
+                <div class="logo-text">
+                    <h1>Inktober 2k25</h1>
+                    <p>Collaborative Pixel Art Project</p>
+                </div>
+            </div>
+            <div class="controls">
+                <button class="theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
 
-  <div class="content">
-    <div class="overlay">
-      <h1>Inktober 2k25 - Collaborative Pixel Art</h1>
-    </div>
+    <main class="main-content">
+        <div class="sheet-container">
+            <div class="sheet-header">
+                <div class="sheet-info">
+                    <h2>Pixel Art Canvas</h2>
+                    <p>135 columns × 203 rows of creative collaboration</p>
+                </div>
+                <div class="sheet-actions">
+                    <button class="action-btn" onclick="refreshSheet()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </div>
+            <iframe 
+                class="sheet-frame" 
+                src="https://docs.google.com/spreadsheets/d/15npybvf3p85Gyhw6EAMXyL5x09UI0zZqRO2RQMSQ4Pk/edit?usp=sharing&rm=minimal" 
+                id="sheetFrame"
+                allow="fullscreen"
+            ></iframe>
+        </div>
+    </main>
 
-    <iframe
-      src="https://docs.google.com/spreadsheets/d/15npybvf3p85Gyhw6EAMXyL5x09UI0zZqRO2RQMSQ4Pk/edit?usp=sharing&rm=demo"
-      allow="fullscreen"
-      id="mainIframe"
-    ></iframe>
-  </div>
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2025 <a href="https://github.com/Lavin-tom/CollabPixels.git" target="_blank">lāvin</a> | Collaborative Pixel Art Project</p>
+        </div>
+    </footer>
 
-  <footer>
-    <p>
-      &copy; 2025
-      <a
-        href="https://github.com/Lavin-tom/CollabPixels.git"
-        target="_blank"
-        style="text-decoration: none; color: inherit;"
-        >lāvin</a
-      >
-    </p>
-  </footer>
-
-  <!-- Mini Map Section -->
-  <div class="mini-map-wrapper">
-    <div class="mini-map-header">
-      Sheet Overview Mini-Map
-    </div>
-    <div class="mini-map-content">
-      <div class="loading-message" id="loadingMessage">
-        Loading sheet preview...
-      </div>
-      <iframe 
-        class="mini-map-iframe"
-        src="about:blank"
-        id="publishedSheetPreview"
-        style="display: none;"
-      ></iframe>
-  
-      <div class="viewport-indicator" id="viewportIndicator"></div>
-      <div class="mini-map-overlay"></div>
-    </div>
-    
-    <div class="instructions">
-      Scroll in main sheet to navigate • Mini-map shows zoomed-out view
-    </div>
-  </div>
-
-  <script>
-    window.addEventListener("DOMContentLoaded", () => {
-      const mainIframe = document.getElementById("mainIframe");
-      const publishedSheetPreview = document.getElementById("publishedSheetPreview");
-      const loadingMessage = document.getElementById("loadingMessage");
-      const viewportIndicator = document.getElementById("viewportIndicator");
-      const screenshotFallback = document.getElementById("screenshotFallback");
-      
-      function loadPublishedSheet() {
-        const sheetId = '15npybvf3p85Gyhw6EAMXyL5x09UI0zZqRO2RQMSQ4Pk';
-        const publishedUrl = `https://docs.google.com/spreadsheets/d/e/${sheetId}/pubhtml?widget=true&headers=false&chrome=false`;
+    <script>
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
         
-        publishedSheetPreview.src = publishedUrl;
-        publishedSheetPreview.style.display = 'block';
+        // Check for saved theme preference or prefer OS theme
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const currentTheme = localStorage.getItem('theme');
         
-        publishedSheetPreview.onload = function() {
-          loadingMessage.style.display = 'none';
-          setupScrollSync();
-        };
-      }
-          
-      // Setup scroll synchronization
-      function setupScrollSync() {
-        let scrollInterval;
+        if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
+            document.body.classList.add('dark-theme');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
         
-        mainIframe.addEventListener('load', function() {
-          if (scrollInterval) clearInterval(scrollInterval);
-          
-          scrollInterval = setInterval(() => {
-            updateViewportIndicator();
-          }, 100);
+        themeToggle.addEventListener('click', function() {
+            document.body.classList.toggle('dark-theme');
+            
+            if (document.body.classList.contains('dark-theme')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
         });
         
-        // Also track window scroll for the main page
-        window.addEventListener('scroll', updateViewportIndicator);
-      }
-      
-      // Update the viewport indicator
-      function updateViewportIndicator() {
-        try {
-          const iframeWindow = mainIframe.contentWindow;
-          const iframeDoc = mainIframe.contentDocument;
-          
-          if (!iframeWindow || !iframeDoc) {
-            updateViewportIndicatorFallback();
-            return;
-          }
-          
-          const scrollX = iframeWindow.scrollX || iframeDoc.documentElement.scrollLeft;
-          const scrollY = iframeWindow.scrollY || iframeDoc.documentElement.scrollTop;
-          const viewportWidth = iframeWindow.innerWidth;
-          const viewportHeight = iframeWindow.innerHeight;
-          
-          const docWidth = Math.max(iframeDoc.documentElement.scrollWidth, iframeDoc.body.scrollWidth, 5000);
-          const docHeight = Math.max(iframeDoc.documentElement.scrollHeight, iframeDoc.body.scrollHeight, 3000);
-          
-          if (docWidth > 0 && docHeight > 0) {
-            const previewWidth = 300; // mini-map content width
-            const previewHeight = document.querySelector('.mini-map-content').clientHeight;
+        // Refresh sheet function
+        function refreshSheet() {
+            const sheetFrame = document.getElementById('sheetFrame');
+            const currentSrc = sheetFrame.src;
+            sheetFrame.src = '';
+            setTimeout(() => {
+                sheetFrame.src = currentSrc;
+            }, 100);
             
-            const indicatorWidth = (viewportWidth / docWidth) * previewWidth * 4; // ×4 because of scale(0.25)
-            const indicatorHeight = (viewportHeight / docHeight) * previewHeight * 4;
-            const indicatorLeft = (scrollX / docWidth) * previewWidth * 4;
-            const indicatorTop = (scrollY / docHeight) * previewHeight * 4;
+            // Show a subtle notification
+            const originalText = event.target.innerHTML;
+            event.target.innerHTML = '<i class="fas fa-check"></i> Refreshed';
+            event.target.style.background = '#4CAF50';
             
-            viewportIndicator.style.width = Math.max(indicatorWidth, 8) + 'px';
-            viewportIndicator.style.height = Math.max(indicatorHeight, 8) + 'px';
-            viewportIndicator.style.left = indicatorLeft + 'px';
-            viewportIndicator.style.top = indicatorTop + 'px';
-            viewportIndicator.style.display = 'block';
-          }
-        } catch (e) {
-          updateViewportIndicatorFallback();
+            setTimeout(() => {
+                event.target.innerHTML = originalText;
+                event.target.style.background = '';
+            }, 1500);
         }
-      }
-      
-      function updateViewportIndicatorFallback() {
-        // Fallback that simulates movement for demonstration
-        const time = Date.now() / 5000;
-        const previewWidth = 300 * 4;
-        const previewHeight = document.querySelector('.mini-map-content').clientHeight * 4;
         
-        const x = (Math.sin(time) * 0.3 + 0.5) * (previewWidth - 100);
-        const y = (Math.cos(time * 0.7) * 0.3 + 0.5) * (previewHeight - 60);
-        
-        viewportIndicator.style.width = '100px';
-        viewportIndicator.style.height = '60px';
-        viewportIndicator.style.left = x + 'px';
-        viewportIndicator.style.top = y + 'px';
-        viewportIndicator.style.display = 'block';
-      }
-      
-      // Initialize
-      loadPublishedSheet();
-      
-      // Make mini-map non-interactive
-      publishedSheetPreview.style.pointerEvents = "none";
-    });
-  </script>
+        // Listen for system theme changes
+        prefersDarkScheme.addEventListener('change', e => {
+            if (!localStorage.getItem('theme')) {
+                if (e.matches) {
+                    document.body.classList.add('dark-theme');
+                    themeIcon.classList.remove('fa-moon');
+                    themeIcon.classList.add('fa-sun');
+                } else {
+                    document.body.classList.remove('dark-theme');
+                    themeIcon.classList.remove('fa-sun');
+                    themeIcon.classList.add('fa-moon');
+                }
+            }
+        });
+    </script>
 </body>
 </html>
