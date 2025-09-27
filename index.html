@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inktober 2k25 - Collaborative Pixel Art</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/Lavin-tom/CollabPixels/main/assets/favicon.png"> 
+    <link rel="shortcut icon" type="image/png"  href="https://raw.githubusercontent.com/Lavin-tom/CollabPixels/main/assets/favicon.png">    
     <style>
         * {
             margin: 0;
@@ -48,7 +50,7 @@
         header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            padding: 1.5rem 2rem;
+            padding: 1rem 2rem;
             box-shadow: 0 4px 12px var(--shadow);
             position: relative;
             z-index: 10;
@@ -56,7 +58,7 @@
         }
 
         .header-content {
-            max-width: 1400px;
+            max-width: 100%;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -69,20 +71,21 @@
             display: flex;
             align-items: center;
             gap: 1rem;
+            flex-shrink: 0;
         }
 
         .logo i {
-            font-size: 2.5rem;
+            font-size: 2rem;
         }
 
         .logo-text h1 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 0.2rem;
         }
 
         .logo-text p {
-            font-size: 1rem;
+            font-size: 0.9rem;
             opacity: 0.9;
         }
 
@@ -90,20 +93,21 @@
             display: flex;
             gap: 1rem;
             align-items: center;
+            flex-shrink: 0;
         }
 
         .theme-toggle {
             background: rgba(255, 255, 255, 0.2);
             border: none;
             border-radius: 50%;
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             color: white;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             transition: all 0.3s;
         }
 
@@ -114,22 +118,26 @@
 
         .main-content {
             flex: 1;
-            padding: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
+            padding: 1rem;
             width: 100%;
+            max-width: none;
+            margin: 0;
         }
 
         .sheet-container {
             background: var(--card-bg);
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 6px 18px var(--shadow);
             border: 1px solid var(--border);
+            width: 100%;
+            height: calc(100vh - 140px); 
+            display: flex;
+            flex-direction: column;
         }
 
         .sheet-header {
-            padding: 1.2rem 1.5rem;
+            padding: 0.8rem 1rem;
             background: var(--card-bg);
             border-bottom: 1px solid var(--border);
             display: flex;
@@ -137,17 +145,18 @@
             align-items: center;
             flex-wrap: wrap;
             gap: 1rem;
+            flex-shrink: 0;
         }
 
         .sheet-info h2 {
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             font-weight: 600;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
 
         .sheet-info p {
             color: var(--text-light);
-            font-size: 0.9rem;
+            font-size: 0.8rem;
         }
 
         .sheet-actions {
@@ -159,13 +168,13 @@
             background: var(--primary);
             color: white;
             border: none;
-            border-radius: 6px;
-            padding: 0.6rem 1.2rem;
-            font-size: 0.9rem;
+            border-radius: 4px;
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.4rem;
             transition: all 0.3s;
             position: relative;
             overflow: hidden;
@@ -173,7 +182,7 @@
 
         .action-btn:hover {
             background: var(--primary-dark);
-            transform: translateY(-2px);
+            transform: translateY(-1px);
         }
 
         .action-btn.refreshing {
@@ -181,9 +190,15 @@
             cursor: not-allowed;
         }
 
+        .sheet-frame-container {
+            flex: 1;
+            width: 100%;
+            overflow: hidden;
+        }
+
         .sheet-frame {
             width: 100%;
-            height: 70vh;
+            height: 100%;
             border: none;
             background: white;
         }
@@ -192,14 +207,16 @@
             background: var(--card-bg);
             color: var(--text-light);
             text-align: center;
-            padding: 1.5rem;
+            padding: 0.8rem;
             margin-top: auto;
             border-top: 1px solid var(--border);
+            flex-shrink: 0;
         }
 
         .footer-content {
-            max-width: 1400px;
+            max-width: 100%;
             margin: 0 auto;
+            font-size: 0.85rem;
         }
 
         .footer-content a {
@@ -211,7 +228,6 @@
         .footer-content a:hover {
             text-decoration: underline;
         }
-
         @keyframes refreshGlow {
             0% { background: linear-gradient(135deg, var(--primary), var(--primary-dark)); }
             50% { background: linear-gradient(135deg, #4CAF50, #45a049); }
@@ -222,19 +238,61 @@
             animation: refreshGlow 1.5s ease;
         }
 
+        /* Full-width layout adjustments */
+        @media (min-width: 1200px) {
+            .main-content {
+                padding: 1rem 2rem;
+            }
+            
+            .sheet-container {
+                height: calc(100vh - 130px);
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .main-content {
+                padding: 1rem 3rem;
+            }
+        }
+
         @media (max-width: 768px) {
+            header {
+                padding: 0.8rem 1rem;
+            }
+            
             .header-content {
-                flex-direction: column;
-                text-align: center;
+                flex-direction: row;
+                text-align: left;
             }
             
             .logo {
-                justify-content: center;
+                justify-content: flex-start;
+            }
+            
+            .sheet-header {
+                flex-direction: row;
+                align-items: center;
+            }
+            
+            .sheet-actions {
+                width: auto;
+                justify-content: flex-end;
+            }
+            
+            .sheet-container {
+                height: calc(100vh - 120px);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-content {
+                padding: 0.5rem;
             }
             
             .sheet-header {
                 flex-direction: column;
                 align-items: flex-start;
+                gap: 0.5rem;
             }
             
             .sheet-actions {
@@ -242,23 +300,21 @@
                 justify-content: center;
             }
             
-            .sheet-frame {
-                height: 60vh;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .main-content {
-                padding: 1rem;
-            }
-            
-            .sheet-frame {
-                height: 50vh;
+            .sheet-container {
+                height: calc(100vh - 110px);
             }
             
             .action-btn {
-                padding: 0.5rem 1rem;
+                padding: 0.4rem 0.8rem;
                 font-size: 0.8rem;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.3rem;
+            }
+            
+            .logo i {
+                font-size: 1.7rem;
             }
         }
     </style>
@@ -294,12 +350,14 @@
                     </button>
                 </div>
             </div>
-            <iframe 
-                class="sheet-frame" 
-                src="https://docs.google.com/spreadsheets/d/15npybvf3p85Gyhw6EAMXyL5x09UI0zZqRO2RQMSQ4Pk/edit?usp=sharing&rm=minimal" 
-                id="sheetFrame"
-                allow="fullscreen"
-            ></iframe>
+            <div class="sheet-frame-container">
+                <iframe 
+                    class="sheet-frame" 
+                    src="https://docs.google.com/spreadsheets/d/15npybvf3p85Gyhw6EAMXyL5x09UI0zZqRO2RQMSQ4Pk/edit?usp=sharing&rm=minimal" 
+                    id="sheetFrame"
+                    allow="fullscreen"
+                ></iframe>
+            </div>
         </div>
     </main>
 
@@ -310,7 +368,6 @@
     </footer>
 
     <script>
-
         const themeToggle = document.getElementById('themeToggle');
         const themeIcon = themeToggle.querySelector('i');
         const refreshBtn = document.getElementById('refreshBtn');
@@ -348,16 +405,13 @@
             refreshBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Refreshing...';
 
             mainHeader.classList.add('refreshing-header');
-
             sheetFrame.src = '';
             setTimeout(() => {
                 sheetFrame.src = currentSrc;
-
                 setTimeout(() => {
                     refreshBtn.disabled = false;
                     refreshBtn.classList.remove('refreshing');
                     refreshBtn.innerHTML = '<i class="fas fa-sync-alt"></i> Refresh';
-
                     mainHeader.classList.remove('refreshing-header');
                 }, 1000);
             }, 100);
@@ -376,6 +430,17 @@
                 }
             }
         });
+        function optimizeLayout() {
+            const sheetContainer = document.querySelector('.sheet-container');
+            if (window.innerWidth > 1400) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        window.addEventListener('resize', optimizeLayout);
+        optimizeLayout();
     </script>
 </body>
 </html>
