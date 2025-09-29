@@ -5,7 +5,7 @@ Welcome to the **Inktober - Collaborative Pixel Art** project! This is a simple 
 # Last updated
 
 Last updated: 2024-10-31
-![Day Image](Progress/Day31.jpg)  
+![Day Image](2025/Progress/Day31.jpg)  
 
 # Featured Artists
 
@@ -33,22 +33,27 @@ Thank you all for valuable contribution.
 ## How to Use
 
 1. **Access the Sheet**: Open the Google Sheets link provided on the main project page.
-2. **Refer to the Daily Reference Values**: Each day, check the updated reference values to inspire your pixel art.
-3. **Input Values**: Fill in the cells by typing or pasting the desired value. The default conditional formatting in Google Sheets will automatically create a visual representation based on the values you enter.
-4. **Continuous Rows**: For a cohesive look, it’s recommended to fill pixels in continuous rows.
-5. **Cell Value Accuracy**: Since multiple users can edit the sheet, ensure that your cell values exactly match the reference values to avoid any issues.
-6. **No Sign-In Required**: You can fill in the pixels without needing to sign in to a Google account.
-7. **Artist Attribution**: If you contribute, please add your name (first name is enough) to the "Artists" page so we can recognize everyone involved in this collaborative artwork.
+2. **Input Values**: You can enter any value in any of the 135 columns and 203 rows (a total of 27,405 cells available).
+   - No need to copy reference values — simply type or paste the values you'd like to use, and the sheet will automatically adjust the color to match the desired format. The sheet will correct your input based on the reference values for that day.
+3. **Continuous Rows**: For a cohesive look, it’s recommended to fill pixels in continuous rows.
+4. **No Sign-In Required**: You can fill in the pixels without needing to sign in to a Google account.
+5. **Artist Attribution**: If you contribute, please add your name (first name is enough) to the "Artists" page so we can recognize everyone involved in this collaborative artwork.
 
 ## Important Notes
 
 - **Collaboration**: Be mindful that others are also contributing. Respect the existing artwork and try to work in areas that haven’t been filled yet.
-- **Updates**: Remember that reference values will update daily, so check back frequently for new inspiration.
-- **Final Image**: The final image will be set to 85 x 100, totaling 8,500 pixels. The first 24 days will have reference values in 3 rows, and the last 7 days will have 4 rows. This means you can add 255 pixels in the first 24 days and 340 pixels each day in the last week.
-- **Creativity**: Feel free to copy as many values as you like, but please give others a chance to contribute as well. Ensure that copied values are placed in the same row and column as the reference, and make sure they match exactly.
+- **Final Image**: The final image will be set to 135 x 205, totaling 27,405 pixels.
+- **Creativity**: Feel free to add as many values as you like, but please give others a chance to contribute as well.
 - **Final Reveal**: The final image will be published on October 31, showcasing the collaborative effort, so the reference values will guide your contributions without displaying the complete final image until then.
-- **Editing Limitations**: There is a limitation in this approach: you can only edit cells in the desktop version of Google Sheets. If you are trying to edit on mobile, please switch to the desktop version for editing. 
-- **Pasting Values**: When pasting, use **Paste Special -> Values** instead of direct pasting. Direct pasting will copy the reference page's cell properties too. (This is optional; if you can't do this, please ignore it—I will correct it after your update.) If you do not use Paste Special with values alone, the sheet will not update with colors.
+- **Editing Limitations**: There is a limitation in this approach: you can only edit cells in the desktop version of Google Sheets. If you are trying to edit on mobile, please switch to the desktop version for editing.
+
+  ##New for This Year:
+
+- **Input Flexibility**:
+  - Unlike last year, you no longer need to copy reference values exactly. Instead, you can enter any values into the cells in any order. The sheet will automatically correct your input based on the daily reference values. This makes the process easier for everyone to contribute without having to worry about exact matches.
+
+- **More Freedom**:
+  - With 135 columns and 203 rows (a total of 27,405 cells available), you have more freedom to add your own creative input at any time. Whether you're adding a few pixels or contributing larger sections, you can fill in any part of the grid whenever you like.
 
 ## Contribution
 
