@@ -1,6 +1,6 @@
 # Inktober - Collaborative Pixel Art
 
-Welcome to the **Inktober - Collaborative Pixel Art** project! This is a simple collaborative pixel art tool using Google Sheets designed for this season's Inktober challenge. Participants can create pixel art by updating the sheet daily based on provided reference values.
+Welcome to the **Inktober - Collaborative Pixel Art** project! This is a flexible collaborative pixel art tool using Google Sheets designed for this season's Inktober challenge. Participants can freely create pixel art by updating the sheet daily, adding or modifying any values they desire based on their creativity and reference images. Feel free to add your own touch to the artwork
 
 # Last updated
 
