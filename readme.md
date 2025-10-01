@@ -5,7 +5,7 @@ Welcome to the **Inktober - Collaborative Pixel Art** project! This is a flexibl
 # Last updated
 
 Last updated: 2024-10-31
-![Day Image](2025/Progress/Day31.jpg)  
+![Day Image](Progress/2025/Day0.jpg)  
 
 # Featured Artists
 
@@ -20,6 +20,7 @@ A huge thank you to all the talented artists who contributed to this Inktobber c
 
 ## 2024
 [click to view 2024 canvas](https://lavin-tom.github.io/CollabPixels/2024/index.html)
+![Day Image](Progress/2024/Day31.jpg) 
 
 Many members have contributed to this project but some may have forgotten or are unwilling to add their names as contributors.
 Thank you all for valuable contribution.
