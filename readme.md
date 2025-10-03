@@ -20,7 +20,7 @@ A huge thank you to all the talented artists who contributed to this Inktobber c
 
 ## 2024
 [click to view 2024 canvas](https://lavin-tom.github.io/CollabPixels/2024/index.html)
-![Day Image](Progress/2025/Day01.jpg) 
+![Inktober 2024](Progress/2024/Day31.jpg) 
 
 Many members have contributed to this project but some may have forgotten or are unwilling to add their names as contributors.
 Thank you all for valuable contribution.

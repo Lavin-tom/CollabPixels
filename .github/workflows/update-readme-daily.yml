@@ -14,9 +14,9 @@ jobs:
       - name: Update readme.md
         run: |
           # Get yesterday's day and date
-          YESTERDAY=$(date -d "yesterday" +'%d')
+          YESTERDAY=$(date -d "yesterday" +%-d)
           DATE=$(date -d "yesterday" +'%Y-%m-%d')
-          
+
           # Define the image URL based on yesterday's day
           IMAGE_URL="Progress/2025/Day${YESTERDAY}.jpg"
           
