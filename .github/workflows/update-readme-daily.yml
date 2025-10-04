@@ -9,21 +9,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3  
+        uses: actions/checkout@v3
 
       - name: Update readme.md
         run: |
-          # Get yesterday's day and date
+          export TZ=Asia/Kolkata
           YESTERDAY=$(date -d "yesterday" +%-d)
           DATE=$(date -d "yesterday" +'%Y-%m-%d')
 
-          # Define the image URL based on yesterday's day
           IMAGE_URL="Progress/2025/Day${YESTERDAY}.jpg"
           
-          # Update the README with the new image link and date
+          # Replace image URL
           sed -i "s|!\[Day Image\](.*)|![Day Image]($IMAGE_URL)|" readme.md
 
-          # Update Last updated date or append it if it doesn't exist
+          # Update or append Last updated date
           if grep -q "Last updated:" readme.md; then
             sed -i "s|Last updated: .*|Last updated: $DATE|" readme.md
           else
