@@ -18,15 +18,20 @@ jobs:
           DATE=$(date -d "yesterday" +'%Y-%m-%d')
 
           IMAGE_URL="Progress/2025/Day${YESTERDAY}.jpg"
-          
-          # Replace image URL
-          sed -i "s|!\[Day Image\](.*)|![Day Image]($IMAGE_URL)|" readme.md
 
-          # Update or append Last updated date
+          # Update date first, then image
           if grep -q "Last updated:" readme.md; then
             sed -i "s|Last updated: .*|Last updated: $DATE|" readme.md
           else
             echo "Last updated: $DATE" >> readme.md
+          fi
+
+          # Replace or insert the image link on the next line
+          if grep -q "!\[Day Image\]" readme.md; then
+            sed -i "s|!\[Day Image\](.*)|![Day Image]($IMAGE_URL)|" readme.md
+          else
+            echo "" >> readme.md
+            echo "![Day Image]($IMAGE_URL)" >> readme.md
           fi
 
       - name: Commit changes
@@ -34,5 +39,5 @@ jobs:
           git config --local user.email "lavintom007@gmail.com"
           git config --local user.name "Lavin-Tom"
           git add readme.md
-          git commit -m "Update image link and last updated date for $DATE" || echo "No changes to commit"
+          git commit -m "Update date and image for $DATE" || echo "No changes to commit"
           git push
