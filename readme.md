@@ -4,8 +4,8 @@ Welcome to the **Inktober - Collaborative Pixel Art** project! This is a flexibl
 
 # Last updated
 
-Last updated: 2025-10-28
-![Day Image](Progress/2025/Day28.jpg)  
+Last updated: 2025-10-29
+![Day Image](Progress/2025/Day29.jpg)  
 
 # Featured Artists
 
