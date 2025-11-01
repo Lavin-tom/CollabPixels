@@ -1,8 +1,9 @@
-name: Update README Daily
+name: Update README on Push
 
 on:
-  schedule:
-    - cron: '0 19 * * *'  
+  push:
+    branches:
+      - main   
 
 jobs:
   update-readme:
